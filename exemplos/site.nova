@@ -1,0 +1,13 @@
+import web
+
+app = web.app("MeuSite")
+
+@app.route("/")
+func inicio():
+    return "<h1>Olá da NOVA!</h1>"
+
+@app.route("/jogador/<nome>")
+func pagina_jogador(nome):
+    return "<h2>Jogador: " + nome + "</h2>"
+
+app.rodar(porta=8000)

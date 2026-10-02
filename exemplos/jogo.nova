@@ -1,0 +1,114 @@
+# Caça ao Tesouro NOVA - jogo de texto
+# Execute com: Ctrl+Alt+N ou python interpretador/nova.py exemplos/jogo.nova
+
+import random
+
+class Jogador:
+    func __init__(self, nome):
+        self.nome = nome
+        self.vidas = 3
+        self.pontos = 0
+
+    func info(self):
+        print("Pontos: " + str(self.pontos) + " | Vidas: " + str(self.vidas))
+
+
+func introducao():
+    print("========================================")
+    print("        CAÇA AO TESOURO NOVA")
+    print("========================================")
+    print("Você é um explorador em busca do tesouro perdido.")
+    print("Escolha seus caminhos com sabedoria!\n")
+
+
+func sala(titulo, descricao, opcoes, tesouro=False):
+    print("\n--- " + titulo + " ---")
+    print(descricao)
+    for i, op in enumerate(opcoes):
+        print(str(i + 1) + ". " + op)
+
+    try:
+        escolha = int(input("Sua escolha: "))
+    catch ValueError:
+        print("Digite um número válido!")
+        return sala(titulo, descricao, opcoes, tesouro)
+
+    if escolha < 1 or escolha > len(opcoes):
+        print("Opção inválida!")
+        return sala(titulo, descricao, opcoes, tesouro)
+
+    return escolha
+
+
+func jogar(jogador):
+    introducao()
+    print("Bem-vindo, " + jogador.nome + "!\n")
+
+    escolha = sala(
+        "Entrada da Caverna",
+        "Você está diante de duas passagens escuras.",
+        ["Esquerda - túnel úmido", "Direita - túnel com ecos"]
+    )
+
+    if escolha == 1:
+        escolha = sala(
+            "Túnel Úmido",
+            "O chão está escorregadio. Você vê:",
+            ["Uma poça brilhante", "Uma escada enferrujada"]
+        )
+        if escolha == 1:
+            print("\nVocê bebe a água... era veneno! -1 vida.")
+            jogador.vidas = jogador.vidas - 1
+            jogador.info()
+        else:
+            print("\nVocê subiu e encontrou um baú! +50 pontos.")
+            jogador.pontos = jogador.pontos + 50
+            jogador.info()
+    else:
+        escolha = sala(
+            "Túnel dos Ecos",
+            "Os ecos revelam caminhos. Você encontra:",
+            ["Um mapa antigo", "Um morcego gigante"]
+        )
+        if escolha == 1:
+            print("\nO mapa mostra um atalho! +30 pontos.")
+            jogador.pontos = jogador.pontos + 30
+            jogador.info()
+        else:
+            print("\nVocê fugiu do morcego! -1 vida.")
+            jogador.vidas = jogador.vidas - 1
+            jogador.info()
+
+    if jogador.vidas <= 0:
+        print("\nGAME OVER! Você não sobreviveu à caverna.")
+        return
+
+    escolha = sala(
+        "A Câmara do Tesouro",
+        "Você chegou à câmara final! Há dois baús:",
+        ["Baú de ouro", "Baú de prata"]
+    )
+
+    if escolha == 1:
+        print("\nO baú de ouro continha apenas pedras. +10 pontos.")
+        jogador.pontos = jogador.pontos + 10
+    else:
+        print("\nO baú de prata guardava o TESOURO REAL! +100 pontos.")
+        jogador.pontos = jogador.pontos + 100
+
+    print("\n========================================")
+    print("FIM DE JOGO")
+    jogador.info()
+    if jogador.pontos >= 100:
+        print("🏆 Parabéns, explorador lendário!")
+    else:
+        print("Boa sorte na próxima caverna!")
+    print("========================================")
+
+
+try:
+    nome = input("Digite seu nome de explorador: ")
+    jogador = Jogador(nome)
+    jogar(jogador)
+catch KeyboardInterrupt:
+    print("\nJogo interrompido.")

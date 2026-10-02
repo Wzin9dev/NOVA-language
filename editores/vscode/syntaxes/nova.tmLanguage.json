@@ -1,0 +1,16 @@
+{
+  "scopeName": "source.nova",
+  "fileTypes": ["nova"],
+  "patterns": [
+    { "name": "comment.line.number-sign.nova", "match": "#.*$" },
+    { "name": "string.quoted.double.nova", "begin": "\"", "end": "\"", "patterns": [{ "name": "constant.character.escape.nova", "match": "\\\\." }] },
+    { "name": "string.quoted.single.nova", "begin": "'", "end": "'" },
+    { "name": "keyword.control.nova", "match": "\\b(func|class|if|elif|else|for|while|try|catch|finally|return|import|from|as|break|continue|in|and|or|not|super|pass)\\b" },
+    { "name": "constant.language.nova", "match": "\\b(True|False|None)\\b" },
+    { "name": "support.function.builtin.nova", "match": "\\b(print|input|len|type|str|int|float|bool|list|dict|tuple|set|range|enumerate|zip|map|filter|sorted|reversed|sum|min|max|abs|round|open)\\b" },
+    { "name": "constant.numeric.nova", "match": "\\b\\d+(\\.\\d+)?\\b" },
+    { "name": "entity.name.function.nova", "match": "(?<=func\\s)[A-Za-z_][A-Za-z0-9_]*" },
+    { "name": "entity.name.type.nova", "match": "(?<=class\\s)[A-Za-z_][A-Za-z0-9_]*" },
+    { "name": "storage.type.function.decorator.nova", "match": "@[A-Za-z_][A-Za-z0-9_.]*" }
+  ]
+}

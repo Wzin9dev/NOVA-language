@@ -1,0 +1,89 @@
+# NOVA - Programa de demonstração completo
+
+import games
+import math
+
+# --- Variáveis ---
+NOME_JOGO = "Corrida NOVA"
+MAX_PONTOS = 100
+
+# --- Função com parâmetro padrão ---
+func saudação(jogador = "visitante"):
+    return "Bem-vindo, " + jogador + "!"
+
+print(saudação())
+print(saudação("Ana"))
+
+# --- Classe e herança ---
+class Jogador:
+    func __init__(self, nome, pontos=0):
+        self.nome = nome
+        self.pontos = pontos
+
+    func pontuar(self, valor):
+        self.pontos = self.pontos + valor
+        if self.pontos > MAX_PONTOS:
+            self.pontos = MAX_PONTOS
+
+class JogadorPro(Jogador):
+    func pontuar(self, valor):
+        super().pontuar(valor * 2)
+
+# --- Listas e list comprehension ---
+recordes = [55, 80, MAX_PONTOS, 30, 42]
+melhores = [p for p in recordes if p >= 50]
+resumo = {"media": sum(recordes) / len(recordes),
+          "limite": math.ceil(sum(recordes) / len(recordes))}
+print(melhores)
+print(resumo)
+
+# --- Tratamento de erro ---
+try:
+    pontos = int(input("Seus pontos iniciais: "))
+catch ValueError:
+    print("Valor inválido, começando com 0.")
+    pontos = 0
+finally:
+    print("Iniciando o jogo...")
+
+jogador = JogadorPro("Ana", pontos)
+
+while jogador.pontos < MAX_PONTOS:
+    if pontos > 50:
+        jogador.pontuar(10)
+    elif pontos == 0:
+        jogador.pontuar(5)
+    else:
+        jogador.pontuar(1)
+    pontos = pontos - 1
+    if jogador.pontos >= 80:
+        break
+
+for i, recorde in enumerate(sorted(melhores)):
+    print(i, recorde)
+
+# --- Jogo 2D simples ---
+jogo = games.janela(NOME_JOGO, 800, 600)
+jogador_sprite = games.retangulo(100, 100, 50, 50, cor="azul")
+adversario = games.retangulo(500, 300, 50, 50, cor="vermelho")
+
+while jogo.aberto:
+    if games.tecla("esquerda"): jogador_sprite.x = jogador_sprite.x - 5
+    if games.tecla("direita"):  jogador_sprite.x = jogador_sprite.x + 5
+    if games.tecla("cima"):     jogador_sprite.y = jogador_sprite.y - 5
+    if games.tecla("baixo"):    jogador_sprite.y = jogador_sprite.y + 5
+
+    if jogador_sprite.colidiu(adversario):
+        jogador.pontuar(10)
+        adversario.x = 600
+
+    jogo.desenhar(jogador_sprite)
+    jogo.desenhar(adversario)
+    jogo.atualizar()
+
+# --- Manipulação de arquivos ---
+try:
+    open("placar.txt", "w").write(jogador.nome + ": " + str(jogador.pontos))
+    print(open("placar.txt", "r").read())
+catch IOError:
+    print("Não foi possível salvar o placar.")

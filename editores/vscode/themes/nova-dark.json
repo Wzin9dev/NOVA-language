@@ -1,0 +1,13 @@
+{
+  "name": "NOVA Dark",
+  "type": "dark",
+  "colors": { "editor.background": "#0d1117", "editor.foreground": "#c9d1d9" },
+  "tokenColors": [
+    { "scope": "keyword.control.nova", "settings": { "foreground": "#ff7b72" } },
+    { "scope": "support.function.builtin.nova", "settings": { "foreground": "#d2a8ff" } },
+    { "scope": "entity.name.function.nova", "settings": { "foreground": "#79c0ff" } },
+    { "scope": "string.quoted.double.nova", "settings": { "foreground": "#a5d6ff" } },
+    { "scope": "constant.numeric.nova", "settings": { "foreground": "#79c0ff" } },
+    { "scope": "comment.line.number-sign.nova", "settings": { "foreground": "#8b949e", "fontStyle": "italic" } }
+  ]
+}

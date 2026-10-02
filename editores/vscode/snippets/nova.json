@@ -1,0 +1,32 @@
+{
+  "função": {
+    "prefix": "func",
+    "body": ["func ${1:nome}(${2:parametros}):", "\t${0:pass}"],
+    "description": "Declaração de função"
+  },
+  "classe": {
+    "prefix": "class",
+    "body": ["class ${1:Nome}:", "\tfunc __init__(self${2:, parametros}):", "\t\t${0:pass}"],
+    "description": "Declaração de classe"
+  },
+  "para": {
+    "prefix": "for",
+    "body": ["for ${1:item} in ${2:lista}:", "\t${0:pass}"],
+    "description": "Laço for"
+  },
+  "enquanto": {
+    "prefix": "while",
+    "body": ["while ${1:condicao}:", "\t${0:pass}"],
+    "description": "Laço while"
+  },
+  "try": {
+    "prefix": "try",
+    "body": ["try:", "\t${1:pass}", "catch ${2:Erro}:", "\t${0:pass}"],
+    "description": "Tratamento de erro"
+  },
+  "se": {
+    "prefix": "if",
+    "body": ["if ${1:condicao}:", "\t${0:pass}"],
+    "description": "Condicional if"
+  }
+}
